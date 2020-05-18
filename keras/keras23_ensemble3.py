@@ -37,7 +37,7 @@ from keras.layers import Dense, Input
 
 input1 = Input(shape=(3, ))
 dense1_1 = Dense(5, activation = 'relu', name='bitking1_1')(input1)
-dense1_2 = Dense(4, activation = 'relu', name='bitking1_2')(dense1_1)
+dense1_2 = Dense(4, name='bitking1_2')(dense1_1)
 dense1_3 = Dense(4, activation = 'relu', name='bitking1_3')(dense1_2)
 # output1 = Dense(3)(dense1_2)
 
@@ -45,7 +45,10 @@ dense1_3 = Dense(4, activation = 'relu', name='bitking1_3')(dense1_2)
 input2 = Input(shape=(3, ))
 dense2_1 = Dense(5, activation = 'relu', name='bitking2_1')(input2)
 dense2_2 = Dense(6)(dense2_1)
-dense2_3 = Dense(4, activation = 'relu', name='bitking2_2')(dense2_2) # 그냥 dense2_2로 적어도 상관은 없다.
+dense2_2 = Dense(6)(dense2_2)
+dense2_2 = Dense(6)(dense2_2)
+dense2_2 = Dense(6)(dense2_2)
+dense2_3 = Dense(4, name='bitking2_2')(dense2_2) # 그냥 dense2_2로 적어도 상관은 없다.
 # output2 = Dense(3)(dense2_2)
 
 # 두 모델을 엮어주는 기능 불러오기
@@ -53,17 +56,21 @@ from keras.layers.merge import concatenate
 # 두개의 모델을 끝나는 부분에 layer로 합침
 merge1 = concatenate([dense1_2, dense2_2])
 
-middle1 = Dense(30)(merge1)
+middle1 = Dense(10)(merge1)
+middle1 = Dense(10)(merge1)
 # 모델이름 동일하게 써도 됨
 middle1 = Dense(5)(middle1)
 middle1 = Dense(7)(middle1)
-middle1 = Dense(3, activation = 'relu')(middle1)
+middle1 = Dense(7)(middle1)
+middle1 = Dense(7)(middle1)
+middle1 = Dense(2)(middle1)
 middle1 = Dense(7)(middle1)
 
 # Devide a concatenated model into 2 models (as output)
 output1 = Dense(3)(middle1)
-output1_2 = Dense(4)(output1)
-output1_2 = Dense(6, activation = 'relu')(output1)
+output1 = Dense(4)(output1)
+output1 = Dense(4)(output1)
+output1 = Dense(5)(output1)
 output1_2 = Dense(5)(output1)
 output1_3 = Dense(3)(output1_2)
 
@@ -75,7 +82,7 @@ model.summary()
 # 3. 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
 model.fit([x1_train, x2_train],
-          [y1_train], epochs = 200, batch_size=1,
+          [y1_train], epochs = 100, batch_size=3,
            validation_split = 0.25, verbose = 1)
 
 # 4. 평가, 예측
