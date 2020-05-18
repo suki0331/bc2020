@@ -1,14 +1,15 @@
-import numpy as np
+# 1. 단어장 만들기
+vocab = { 
+    # 코드를 입력하세요
+    'sanitizer' : '살균제',
+    'ambition' : '야망',
+    'conscience' : '양심',
+    'civilization' : '문명'
+}
+print(vocab) # 단어장 출력
 
-x = np.transpose(np.array([range(1,101), range(311,411), range(100)]))
-
-print(x)
-# print(x_pred)
-# print(x_pred.shape)
-print(x.shape)
-
-
-x_pred = np.transpose(np.array([range(301,401), range(511,611), range(200)]))
-y_true = np.transpose(np.array([range(401,501), range(911,1011), range(200)]))
-
-print(x_pred)
+# 2. 새로운 단어들 추가
+vocab["privilege"] = '특권'
+vocab["principle"] = '원칙'
+# 코드를 입력하세요
+print(vocab) # 단어장 출력
