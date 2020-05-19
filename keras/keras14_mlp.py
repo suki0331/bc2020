@@ -16,18 +16,6 @@ x_train, x_test, y_train, y_test = train_test_split(
     train_size=0.8
 )
 
-print(x_train)
-print(x_test)
-'''
-x_train = x[:60]
-x_val = x[60:80]
-x_test = x[80:]
-
-y_train = x[:60]
-y_val = x[60:80]
-y_test = x[80:]
-'''
-
 # 2. 모델 구성
 from keras.models import Sequential
 from keras.layers import Dense

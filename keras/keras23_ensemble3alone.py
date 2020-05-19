@@ -36,49 +36,34 @@ from keras.layers import Dense, Input
 input1 = Input(shape=(2, ))
 dense1_1 = Dense(5, activation = 'relu', name='bitking1_1')(input1)
 dense1_2 = Dense(4, name='bitking1_2')(dense1_1)
-dense1_3 = Dense(4, activation = 'relu', name='bitking1_3')(dense1_2)
+dense1_3 = Dense(4, name='bitking1_3')(dense1_2)
 # output1 = Dense(3)(dense1_2)
 
 # Second model
 input2 = Input(shape=(2, ))
 dense2_1 = Dense(5, activation = 'relu', name='bitking2_1')(input2)
 dense2_2 = Dense(4, name='bitking2_2')(dense2_1)
-dense2_3 = Dense(4, activation = 'relu', name='bitking2_2')(dense2_2) # 그냥 dense2_2로 적어도 상관은 없다.
+dense2_3 = Dense(4, name='bitking2_3')(dense2_2) # 그냥 dense2_2로 적어도 상관은 없다.
 # output2 = Dense(3)(dense2_2)
 
 # 두 모델을 엮어주는 기능 불러오기
 from keras.layers.merge import concatenate
 # 두개의 모델을 끝나는 부분에 layer로 합침
-merge1 = concatenate([dense1_2, dense2_2])
+merge1 = concatenate([dense1_3, dense2_3])
 
-middle1 = Dense(10)(merge1)
-middle1 = Dense(10)(merge1)
-# 모델이름 동일하게 써도 됨
-middle1 = Dense(5)(middle1)
-middle1 = Dense(7)(middle1)
-middle1 = Dense(7)(middle1)
-middle1 = Dense(7)(middle1)
-middle1 = Dense(2)(middle1)
-middle1 = Dense(7)(middle1)
+middle1 = Dense(6)(merge1)
 
 # Devide a concatenated model into 2 models (as output)
-output1 = Dense(3)(middle1)
-output1 = Dense(4)(output1)
-output1 = Dense(4)(output1)
-output1 = Dense(5)(output1)
+output1 = Dense(8)(middle1)
 output1_2 = Dense(5)(output1)
 output1_3 = Dense(2)(output1_2)
 
 output2 = Dense(6)(middle1)
-output2_2 = Dense(3)(output2)
-output2_2 = Dense(3)(output2_2)
-output2_2 = Dense(3)(output2_2)
+output2_2 = Dense(6)(output2)
 output2_3 = Dense(2)(output2_2)
 
-output3= Dense(10)(middle1)
+output3= Dense(7)(middle1)
 output3_2 = Dense(6)(output3)
-output3_2 = Dense(6)(output3_2)
-output3_2 = Dense(6)(output3_2)
 output3_3 = Dense(2)(output3_2)
 
 model = Model(inputs=[input1, input2], name="model_no_1",

@@ -1,15 +1,15 @@
-# 1. 단어장 만들기
-vocab = { 
-    # 코드를 입력하세요
-    'sanitizer' : '살균제',
-    'ambition' : '야망',
-    'conscience' : '양심',
-    'civilization' : '문명'
-}
-print(vocab) # 단어장 출력
+# 투표 결과 리스트
+votes = ['김영자', '강승기', '최만수', '김영자', '강승기', '강승기', '최만수', '김영자', \
+'최만수', '김영자', '최만수', '김영자', '김영자', '최만수', '최만수', '최만수', '강승기', \
+'강승기', '김영자', '김영자', '최만수', '김영자', '김영자', '강승기', '김영자']
 
-# 2. 새로운 단어들 추가
-vocab["privilege"] = '특권'
-vocab["principle"] = '원칙'
-# 코드를 입력하세요
-print(vocab) # 단어장 출력
+# 후보별 득표수 사전
+vote_counter = {}
+
+# 리스트 votes를 이용해서 사전 vote_counter를 정리하기
+for name in votes:
+    vote_counter[name] = votes.count(name)
+    # 코드를 작성하세요.
+
+# 후보별 득표수 출력
+print(vote_counter)
