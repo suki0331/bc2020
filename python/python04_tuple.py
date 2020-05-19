@@ -10,4 +10,4 @@ print(a)
 print(a + b)
 print(a * 3)
 
-print(a - 3)
+# print(a - 3) # cannot remove or overwrite
