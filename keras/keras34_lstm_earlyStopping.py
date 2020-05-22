@@ -32,11 +32,11 @@ print(x1.shape)
 print(x2.shape)
 
 # 2. 모델 구성
-input1 = Input(shape=(3,))
+input1 = Input(shape=(3,1))
 lstm1 = LSTM(128, activation='relu')(input1)
 dense1 = Dense(1)(lstm1)
 
-input2 = Input(shape=(3,))
+input2 = Input(shape=(3,1))
 lstm2 = LSTM(128, activation='relu')(input2)
 dense2 = Dense(1)(lstm2)
 

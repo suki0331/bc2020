@@ -17,8 +17,8 @@ y = array([4,5,6,7,8,9,10,11,12,13,50,60,70])
 # y2 = array([[4,5,6,7]])        # (1,4)
 # y3 = array([[4],[5],[6],[7]])  # (4,1)
 
-print(f"x1 shape : {x1.shape}") # (4,3)
-print(f"x2 shape : {x2.shape}") # (4,3)
+print(f"x1 shape : {x1.shape}") # (13,3)
+print(f"x2 shape : {x2.shape}") # (13,3)
 print(f"y shape : {y.shape}") # (4, )
 # print(f"y2 shape : {y2.shape}") 
 # print(f"y3 shape : {y3.shape}") 
@@ -32,13 +32,16 @@ print(x1.shape)
 print(x2.shape)
 
 # 2. 모델 구성
-input1 = Input(shape=(3,))
-lstm1 = LSTM(128, activation='relu')(input1)
-dense1 = Dense(1)(lstm1)
+# lstm 2 layer연결
+input1 = Input(shape=(3,1))
+lstm1 = LSTM(64, activation='relu', return_sequences=True,)(input1)
+lstm1_2 = LSTM(32, activation='relu')(lstm1)
+dense1 = Dense(1)(lstm1_2)
 
-input2 = Input(shape=(3,))
-lstm2 = LSTM(128, activation='relu')(input2)
-dense2 = Dense(1)(lstm2)
+input2 = Input(shape=(3,1))
+lstm2 = LSTM(10, activation='relu', return_sequences= True)(input2)
+lstm2_2 = LSTM(5, activation='relu')(lstm2)
+dense2 = Dense(1)(lstm2_2)
 
 from keras.layers.merge import concatenate
 merge1 = concatenate([dense1, dense2])
@@ -50,7 +53,7 @@ model = Model(inputs = [input1, input2], outputs=output1)
 # 3. 실행
 model.compile(optimizer='adam', loss='mse')
 from keras.callbacks import EarlyStopping
-early_stopping = EarlyStopping(monitor='loss', patience=15, mode='min', verbose = 1) 
+early_stopping = EarlyStopping(monitor='loss', patience=20, mode='min', verbose = 1) 
 
 # mode는 min, max, auto등이 있다.
 model.fit([x1, x2], y, epochs=200, batch_size = 1, verbose= 2, callbacks=[early_stopping])
@@ -62,4 +65,4 @@ y_predict = model.predict([x1_predict,x2_predict])
 print(y_predict)
 
 # 결과 값이 만족스럽지 않은 이유 
-
+model.summary()
