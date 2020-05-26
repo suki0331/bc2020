@@ -4,7 +4,7 @@ from keras.layers import Dense, LSTM
 
 # complete an LSTM Model.
 #1. 데이터 준비
-a = np.array(range(1,11))
+a = np.array(range(1,101))
 size = 5
 
 def split_data(seq,size):
@@ -52,8 +52,8 @@ print(f"data_split_x_reshape: {data_split_x}")
 # output1 = Dense(1)(lstm_1)
 
 model_1 = Sequential()
-model_1.add(LSTM(5, input_shape=(4,1)))
-model_1.add(Dense(3))
+model_1.add(LSTM(32, input_shape=(4,1)))
+model_1.add(Dense(7))
 model_1.add(Dense(1, name='new4'))
 # model_1 = Model(inputs=input1, outputs = output1)
 
@@ -66,21 +66,21 @@ early_stopping = EarlyStopping(monitor='val_loss', patience = 5, mode = 'auto')
 
 tb_hist = TensorBoard(log_dir='graph', histogram_freq=0,
                       write_graph=True, write_images=True)
-hist = model_1.fit(data_split_x, data_split_y, batch_size=1, epochs=10, verbose =2, callbacks=[early_stopping, tb_hist])
+hist = model_1.fit(data_split_x, data_split_y, batch_size=1, epochs=100, verbose =2, callbacks=[early_stopping, tb_hist])
 # model_1.summary()
 
-print(hist)
-print(hist.history.keys())
-print(hist.history.items())
+# print(hist)
+# print(hist.history.keys())
+# print(hist.history.items())
 
 import matplotlib.pyplot as plt
 
 plt.plot(hist.history['acc'])
-# plt.plot(hist.history['mse'])
+plt.plot(hist.history['loss'])
 plt.title('LOSS & ACC')
 plt.ylabel('loss, acc')
 plt.xlabel('epoch')
-# plt.show()
+plt.show()
 '''
 # 4. 예측, 평가
 predict_data_x = [[7,8,9,10]]

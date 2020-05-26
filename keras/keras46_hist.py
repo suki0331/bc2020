@@ -69,7 +69,7 @@ print(hist.history.items())
 import matplotlib.pyplot as plt
 
 plt.plot(hist.history['acc'])
-# plt.plot(hist.history['mse'])
+plt.plot(hist.history['loss'])
 plt.title('LOSS & ACC')
 plt.ylabel('loss, acc')
 plt.xlabel('epoch')
