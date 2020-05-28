@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from keras.datasets import mnist
-from keras.models import Sequential, Input, Model
-from keras.layers import Conv2D, Dense, Flatten, MaxPooling2D, Dropout
+from keras.models import Sequential, Model
+from keras.layers import Conv2D, Dense, Flatten, MaxPooling2D, Dropout, Input
 
 # load proprcessed data from mnist
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -47,25 +47,25 @@ x_test = x_test.reshape(10000, 28, 28, 1)/255.
 # model.add(Dense(10, activation='softmax'))
 
 input1 = Input(shape=(28,28,1))
-conv2d_1 = Conv2D(filters=16, kernel_size=(5,5), padding='same', activation='relu')(input1)
-dropout_1 = Dropout(rate=0.4)(conv2d_1)
-conv2d_2 = Conv2D(filters=32, kernel_size=(3,3), padding='same', activation='relu')(dropout_1)
-maxpooling2d_1 = MaxPooling2D(pool_size=(3,3))(conv2d_2)
-dropout_2 = Dropout(rate=0.4)(maxpooling2d_1)
-conv2d_3 = Conv2D(filters=64, kernel_size=(2,2), padding='same', activation='relu')(dropout_2)
-dropout_3 = Dropout(rate=0.4)(conv2d_3)
-flatten_1= Flatten()(dropout_3)
-dense_1 = Dense(128)(flatten_1)
-output1 = Dense(10)(dense_1)
+layer1 = Conv2D(filters=16, kernel_size=(5,5), padding='same', activation='relu')(input1)
+layer2 = Dropout(rate=0.4)(layer1)
+layer3 = Conv2D(filters=32, kernel_size=(3,3), padding='same', activation='relu')(layer2)
+layer4 = MaxPooling2D(pool_size=(3,3))(layer3)
+layer5 = Dropout(rate=0.4)(layer4)
+layer6 = Conv2D(filters=64, kernel_size=(2,2), padding='same', activation='relu')(layer5)
+layer7 = Dropout(rate=0.4)(layer6)
+layer8 = Flatten()(layer7)
+dense1 = Dense(128)(layer8)
+output1 = Dense(10, activation='softmax')(dense1)
 
-model1 = Model(inputs=input1, output=output1)
+model = Model(inputs=input1, output=output1)
 
-model1.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc'])
-model1.fit(x_train, y_train, batch_size=512, epochs =20, verbose=1)
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc'])
+model.fit(x_train, y_train, batch_size=52, epochs =20, verbose=1)
 
 # evaluate, predict
-loss, acc = model1.evaluate(x_test, y_test, batch_size=512)
+loss, acc = model.evaluate(x_test, y_test, batch_size=512)
 print(f"loss : {loss} \n acc : {acc}")
-model1.summary()
+model.summary()
 
 
