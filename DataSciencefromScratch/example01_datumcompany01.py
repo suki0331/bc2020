@@ -76,6 +76,7 @@ def friends_of_friends(user):
 
 print(friends_of_friends(users[3]))
 print()
+<<<<<<< HEAD
 
 interests = [
     (0, "Hadoop"), (0, "Big Data"), (0, "HBase"), (0, "Java"),
@@ -102,3 +103,5 @@ def data_scientists_who_like(target_interest):
 
 # i'd rater make index
 from collections import defaultdict
+=======
+>>>>>>> 6bab15ddd4b21ed4b754b05315814380827635e7
