@@ -5,23 +5,24 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
 
 x, y = load_boston(return_X_y=True)
 
 # checking data shapes
-print(x.shape)
-print(x.shape)
+print(x.shape)  # (506, 13)
+print(y.shape)  # (506, )
 
 print(max(y))
 print(min(y))
 print(x)
 
 # data preprocessing
-# pca = PCA()
+# pca = PCA(3)
 # x = pca.fit_transform(x)
 
-print("pca")
-print(x)
+# print("pca")
+# print(x)
 
 scaler = RobustScaler()
 x = scaler.fit_transform(x)

@@ -1,8 +1,8 @@
 import numpy as np
 
 from keras.datasets import mnist
-from keras.models import Sequential, Input, Model
-from keras.layers import Dense, Dropout
+from keras.models import Sequential, Model
+from keras.layers import Dense, Dropout, Input
 from keras.utils import np_utils
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -21,7 +21,7 @@ print(y_train.shape) # 60000, 10
 
 # 2. normalization
 x_train = x_train.reshape(60000,784)/255.
-x_test = x_test.reshape(10000,784)/255.
+x_test = x_test.reshape(-1,784)/255.
 
 
 # model
