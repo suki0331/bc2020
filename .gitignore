@@ -4,6 +4,7 @@
 *v2
 *profile-empty
 *trace
+*csv
 # directories
 /train/
 /validation/

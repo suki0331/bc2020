@@ -103,5 +103,3 @@ def data_scientists_who_like(target_interest):
 
 # i'd rater make index
 from collections import defaultdict
-=======
->>>>>>> 6bab15ddd4b21ed4b754b05315814380827635e7
