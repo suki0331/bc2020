@@ -76,7 +76,6 @@ def friends_of_friends(user):
 
 print(friends_of_friends(users[3]))
 print()
-<<<<<<< HEAD
 
 interests = [
     (0, "Hadoop"), (0, "Big Data"), (0, "HBase"), (0, "Java"),
