@@ -46,10 +46,10 @@ def create_model(optimizer='adam', drop=0.2):
     return model1
 
 def create_hyperparameters():
-    batches = [30, 40, 50]
+    batches = [400, 500, 300]
     optimizers = ['rmsprop', 'adam', 'adadelta']
-    dropout = np.linspace(0.1, 0.5, 5)
-    return{"batch_size" : batches, "optimizer" : optimizers, 
+    dropout = [0.2, 0.1, 0.3]
+    return{"batch_size" : batches, 
     "drop" : dropout}
 
 model = KerasClassifier(build_fn=create_model, verbose=1)

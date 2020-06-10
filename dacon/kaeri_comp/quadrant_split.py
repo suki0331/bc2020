@@ -11,6 +11,8 @@ from keras.layers.merge import concatenate
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 from keras.utils import np_utils
 from math import sqrt
+from mpl_toolkits.mplot3d import Axes3D
+
 
 x_train = pd.read_csv('./data/dacon//kaeri_comp/train_features.csv',
                     header=0,
@@ -27,6 +29,31 @@ pred = pd.read_csv('./data/dacon//kaeri_comp/test_features.csv',
                     index_col=0,
                     sep=',')
 
+y_train_int = y_train.astype(int)
+
+# y_train = y_train.to_numpy()
+print(y_train)
+
+# for i in range(2800):
+#     if y_train.loc[]
+
+
+def filter(seq,num1,num2):
+    blank = []
+    for i in range(2800):
+        if seq.loc[i][0] == num1:
+            if seq.loc[i][1] == num2:
+                blank.append(i)
+    return blank
+
+# print(y_train.loc[0][0]==0)
+
+dd = filter(y_train_int, 100, 100)
+print(dd)
+
+# dd1 =y_train.iloc[dd]
+
+# x_approach
 x_time_s1 = x_train.iloc[:,1].to_numpy()
 x_time_s2 = x_train.iloc[:,2].to_numpy()
 x_time_s3 = x_train.iloc[:,3].to_numpy()
@@ -56,32 +83,30 @@ x_approach_s4 = approach_time(x_time_s4)
 x_approach = (x_approach_s1 + x_approach_s2 + x_approach_s3 + x_approach_s4)/4.
 print(x_approach.shape) # (2800, 1)
 
+approach = pd.DataFrame(data=x_approach, index=None)
+print(approach)
 
-y_location = y_train.iloc[:,:2].to_numpy()
-# print(y_location.shape) 
+dd1 = approach.iloc[dd]
+dd2 = y_train.iloc[dd]
+print(type(dd2))
+print(type(dd1))
 
-blank = []
-for i in range(y_location.shape[0]):
-    dist = sqrt((y_location[i][0])**2+(y_location[i][1])**2)
-    blank.append(dist)
-
-blank = np.array(blank)
-
-print(blank.shape)  # (2800,)
-
-# # model
-
-# model = Sequential()
-# model.add(Dense(64, activation='relu', input_shape=(1,)))
-# model.add(Dropout(0.1))
-# model.add(Dense(1, activation='relu'))
+result = dd2.join(dd1)
+result = result.to_numpy()
+print(result)
+print(type(result))
 
 
-# model.compile(optimizer='adam', loss='mse')
+fig = plt.figure(1, figsize=(8, 6))
+ax = Axes3D(fig, elev=-150, azim=110)
+ax.scatter(result[:, 2], result[:, 3], result[:, 4],
+           cmap=plt.cm.Set1, edgecolor='k', s=40)
+ax.set_title("dd")
+ax.set_xlabel("mass")
+# ax.w_xaxis.set_ticklabels([])
+ax.set_ylabel("velocity")
+# ax.w_yaxis.set_ticklabels([])
+ax.set_zlabel("avg_time")
+# ax.w_zaxis.set_ticklabels([])
 
-# hist = model.fit(x_approach, blank, epochs=100, verbose=1, validation_split=0)
-
-# print(hist.history.loss)
-
-plt.scatter(blank, x_approach)
 plt.show()
