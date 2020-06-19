@@ -5,6 +5,8 @@
 *profile-empty
 *trace
 *csv
+*json
+*mp4
 # directories
 /train/
 /validation/

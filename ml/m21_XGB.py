@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
 
 cancer = load_breast_cancer()
+
 x_train, x_test, y_train, y_test = train_test_split(
     cancer.data, cancer.target, train_size=0.8, shuffle=True
 )
