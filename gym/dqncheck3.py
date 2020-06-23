@@ -9,10 +9,10 @@ from keras.layers import Conv2D, Flatten, Dense
 from keras.optimizers import Adam
 from gym import wrappers
 
-env_name = 'Pendulum-v0'
+env_name = 'CartPole-v0'
 env = gym.make(env_name)
-env = wrappers.Monitor(env, './recording_real1', force=True)
-memory = deque(maxlen=10000)
+# env = wrappers.Monitor(env, './recording_real2', force=True)
+memory = deque(maxlen=3000)
 gamma = 0.9
 
 
@@ -29,11 +29,11 @@ print(env.observation_space.shape[0])
 
 def model_1():
     model = Sequential()
-    model.add(Dense(24, input_shape=(env.observation_space.shape[0], ),  activation='relu'))
-    model.add(Dense(8, activation='relu'))
-    model.add(Dense(env.action_space.shape[0], activation='linear'))
+    model.add(Dense(12, input_shape=(env.observation_space.shape[0], ),  activation='relu'))
+    model.add(Dense(12, activation='relu'))
+    model.add(Dense(env.action_space.n, activation='linear'))
 
-    model.compile(loss='mse', optimizer='adam')
+    model.compile(loss='mse', optimizer=Adam(lr=0.001))
     return model
 
 
@@ -44,54 +44,57 @@ def preprocess(observation):
     return np.reshape(observation, [-1, env.observation_space.shape[0]])
 
 def model_train(model, minibatch):
-    x_stack = np.empty(0).reshape(0, 3)
-    y_stack = np.empty(0).reshape(0, 1)
+    x_stack = np.empty(0).reshape(0, 4)
+    y_stack = np.empty(0).reshape(0, 2)
 
     for observation, action, reward, next_observation, done in minibatch:
         Q = model.predict(observation)
-
+        
         if done:
-            Q[0,0] = reward
+            Q[0,action] = reward
         else:
-            Q[0,0] = reward + gamma*np.max(model.predict(next_observation))
+            Q[0,action] = reward + gamma*np.max(np.argmax(model.predict(next_observation)))
         
         y_stack = np.vstack([y_stack, Q])
         x_stack = np.vstack([x_stack, observation])
-    return model.fit(x_stack,y_stack, batch_size=128, verbose=2)
-
+    return model.fit(x_stack,y_stack, epochs=1, batch_size=32, verbose=0)
 
 
 
 model = model_1()
 
+
 for i_episode in range(100000):
     observation = env.reset()   # always reset b4 start
     done = False
     observation = preprocess(observation)
-    epsilon = 1.0
+    epsilon = 1       # /(i_episode*0.001+1)
     epsilon_min = 0.01
     reward_sum = 0
     while True:
-        env.render()
-        observation = preprocess(observation)
+        # env.render()
         if np.random.random() <= max(epsilon, epsilon_min):
             action = env.action_space.sample()
         else:    
-            action = model.predict(observation)
-        epsilon = epsilon*0.98
+            observation = preprocess(observation)
+            action = np.argmax(model.predict(observation))
+        epsilon = epsilon*0.99
         next_observation, reward, done, info = env.step(action)
         next_observation = preprocess(next_observation)
-        memory.append((observation, action, reward, next_observation, done))
-        observation = next_observation
+        memory.append((next_observation, action, reward, observation, done))
         reward_sum += reward
         if done:
-            print(f"episode {i_episode} Total reward : {reward_sum}")
+            if reward >= 100:
+                print(f"episode {i_episode} Total reward : {reward_sum}")
+            reward -= 200
             break
+
+        if len(memory) >= 32:
+            minibatch = random.sample(memory, 32)
+            model_train(model, minibatch)
+        observation = next_observation
     # observation = np.reshape(observation, [1, env.observation_space.shape[0]])
     # next_observation = np.reshape(next_observation, [1, env.observation_space.shape[0]])
     # print(observation.shape)
     # print(next_observation.shape)
-    reward += reward_sum
-    minibatch = random.sample(memory, 128)
-    model_train(model, minibatch)
 # env.close()

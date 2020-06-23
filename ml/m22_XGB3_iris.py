@@ -1,16 +1,17 @@
+# from m22_XGB.py
 # protect overfitting
 # 1. increase the number of train data
 # 2. decrease amount of features
 # 3. regularization
 
 import numpy as np
-from xgboost import XGBRegressor, plot_importance
-from sklearn.datasets import load_boston
+from xgboost import XGBClassifier, plot_importance
+from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 
-dataset = load_boston()
+dataset = load_iris()
 
 x = dataset.data
 y = dataset.target
@@ -31,7 +32,7 @@ colsample_bylevel = 0.9
 n_jobs= -1      # use all cpu threads
 max_depth = 5   
 
-model = XGBRegressor(max_depth=max_depth, learning_rate=learning_rate,
+model = XGBClassifier(max_depth=max_depth, learning_rate=learning_rate,
                       n_estimators=n_estimators, n_jobs=n_jobs,
                       colsample_bylevel=colsample_bylevel,
                       colsample_bytree = colsample_bytree

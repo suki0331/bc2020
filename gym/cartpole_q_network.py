@@ -54,7 +54,6 @@ def train(model, observations, targets):
   # exit(0)
 
   np_obs = np.reshape(observations, [-1, OBSERVATIONS_DIM])
-  print(np_obs)
   np_targets = np.reshape(targets, [-1, ACTIONS_DIM])
 
   model.fit(np_obs, np_targets, epochs=1, verbose=0)
@@ -112,7 +111,7 @@ def main():
   #target_model.set_weights(action_model.get_weights())
 
   env = gym.make('CartPole-v0')
-  env = wrappers.Monitor(env, './recording1', force=True)
+  # env = wrappers.Monitor(env, './recording1', force=True)
 
   for episode in range(NUM_EPISODES):
     observation = env.reset()
@@ -134,10 +133,11 @@ def main():
       observation, reward, done, info = env.step(action)
 
       if done:
-        print('Episode {}, iterations: {}'.format(
-          episode,
-          iteration
-        ))
+        if iteration >= 100:
+          print('Episode {}, iterations: {}'.format(
+            episode,
+            iteration
+          ))
 
         # print action_model.get_weights()
         # print target_model.get_weights()
