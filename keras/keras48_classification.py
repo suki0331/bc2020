@@ -15,14 +15,14 @@ model = Sequential()
 model.add(Dense(100, input_dim=1, activation='relu'))
 model.add(Dense(50, activation='relu'))
 model.add(Dense(20)) # activation value has a default option.
-model.add(Dense(10, activation='relu'))
+model.add(Dense(10, activation='linear'))
 model.add(Dense(1, activation='sigmoid'))
 
 
 # 3. 실행
 model.compile(loss="binary_crossentropy", optimizer='adam', 
               metrics=['acc'])
-model.fit(x, y, batch_size=1, epochs=100)
+model.fit(x, y, batch_size=2, epochs=100)
 
 # 4. 평가, 예측
 loss, acc= model.evaluate(x, y, batch_size=1)
