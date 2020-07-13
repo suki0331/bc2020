@@ -1,0 +1,32 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 1 files
+Detected 0 issues that require attention
+--------------------------------------------------------------------------------
+================================================================================
+Detailed log follows:
+
+================================================================================
+--------------------------------------------------------------------------------
+Processing file 'tf11_softmax.py'
+ outputting to 'tf11_softmaxtf2.py'
+--------------------------------------------------------------------------------
+
+6:0: INFO: Renamed 'tf.set_random_seed' to 'tf.compat.v1.set_random_seed'
+32:4: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+33:4: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+35:16: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+36:16: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+40:7: INFO: Added keywords to args of function 'tf.reduce_mean'
+40:23: INFO: Added keywords to args of function 'tf.reduce_sum'
+40:41: INFO: Renamed 'tf.log' to 'tf.math.log'
+42:6: INFO: Renamed 'tf.train.GradientDescentOptimizer' to 'tf.compat.v1.train.GradientDescentOptimizer'
+48:5: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+49:13: INFO: Renamed 'tf.global_variables_initializer' to 'tf.compat.v1.global_variables_initializer'
+58:22: INFO: Added keywords to args of function 'tf.argmax'
+61:22: INFO: Added keywords to args of function 'tf.argmax'
+64:22: INFO: Added keywords to args of function 'tf.argmax'
+67:22: INFO: Added keywords to args of function 'tf.argmax'
+72:24: INFO: Added keywords to args of function 'tf.argmax'
+--------------------------------------------------------------------------------
+
