@@ -8,6 +8,13 @@
 *dat
 *json
 *mp4
+# django files
+*pyc
+*html
+#db files
+*db
+*json
+*sqlite3
 # directories
 /train/
 /validation/
